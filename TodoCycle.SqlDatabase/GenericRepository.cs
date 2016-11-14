@@ -61,6 +61,14 @@ namespace TodoCycle.SqlDatabase
             }
         }
 
+        public T ExecuteScalar<T>(string sql, object parameters = null)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                return connection.ExecuteScalar<T>(sql, parameters);
+            }
+        }
+
         private string GetValues<T>(IEnumerable<string> fields)
         {
             var type = typeof(T);
