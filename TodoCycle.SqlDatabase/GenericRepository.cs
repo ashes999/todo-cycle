@@ -22,15 +22,14 @@ namespace TodoCycle.SqlDatabase
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var sql = $"SELECT * FROM {typeof(T).Name}";
+                var sql = $"SELECT * FROM {this.TableNameFor<T>()}";
                 return connection.Query<T>(sql, parameters);
             }
         }
 
         public void Insert<T>(T instance)
         {
-            var tableName = typeof(T).Name;
-            tableName = this.pluralize(tableName);
+            var tableName = this.TableNameFor<T>();
 
             var properties = GetProperties<T>();
             var values = GetValues<T>(properties);
@@ -39,18 +38,6 @@ namespace TodoCycle.SqlDatabase
             {
                 connection.Execute(string.Format("INSERT INTO {0} ({1}) VALUES ({2})", tableName, string.Join(",", properties), values), instance);
             }
-        }
-
-        private string pluralize(string tableName)
-        {
-            var toReturn = tableName;
-
-            if (!toReturn.EndsWith("s"))
-            {
-                toReturn += "s";
-            }
-
-            return toReturn;
         }
 
         public void Execute(string sql, object parameters = null)
@@ -88,5 +75,18 @@ namespace TodoCycle.SqlDatabase
             var type = typeof(T);
             return type.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance).Select(f => f.Name).ToList();
         }
+
+        private string TableNameFor<T>()
+        {
+            var toReturn = typeof(T).Name;
+
+            if (!toReturn.EndsWith("s"))
+            {
+                toReturn += "s";
+            }
+
+            return toReturn;
+        }
+
     }
 }

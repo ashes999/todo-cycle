@@ -11,7 +11,7 @@ namespace TodoCycle.Web.Controllers
     [Authorize]
     public abstract class AbstractController : Controller
     {
-        protected Guid GetCurrentUser(GenericRepository repository)
+        protected string GetCurrentUser(GenericRepository repository)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -20,7 +20,7 @@ namespace TodoCycle.Web.Controllers
 
             var userName = User.Identity.Name;
             var userId = repository.ExecuteScalar<string>("SELECT Id FROM AspNetUsers WHERE Email = @userName", new { userName = userName });
-            return new Guid(userId);
+            return userId;
         }
     }
 }

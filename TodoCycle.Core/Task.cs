@@ -9,5 +9,6 @@ namespace TodoCycle.Core
     public class Task
     {
         public string Name { get; set; }
+        public string UserId { get; set; }
     }
 }
