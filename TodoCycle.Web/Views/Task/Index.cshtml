@@ -6,15 +6,20 @@
 
 @section Scripts
 {
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
     <script type="text/javascript" src="~/Scripts/angular/tasksApp.js"></script>
+    <script type="text/javascript" src="http://cdn.jsdelivr.net/g/jquery.ui@1.10(jquery.ui.core.min.js+jquery.ui.widget.min.js+jquery.ui.mouse.min.js+jquery.ui.sortable.min.js),angular.ui-sortable"></script>
 }
 
 <h2>Index</h2>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
 
 <div ng-app="app">
     <div ng-controller="TasksController as controller">
-        Tasks: {{ controller.tasks }}
+        <div ui-sortable="sortableOptions" ng-model="controller.tasks">
+            <div style="padding: 10px; background: #eee; border: 4px solid #888; margin: 8px;" ng-repeat="task in controller.tasks">{{ task.Name }}</div>
+        </div>
     </div>
+
+    
 </div>
