@@ -9,6 +9,9 @@ namespace TodoCycle.Web
     {
         public static void Register(HttpConfiguration config)
         {
+            // Configure Web API to use only forms authentication
+            config.Filters.Add(new AuthorizeAttribute());
+
             // Web API configuration and services
 
             // Web API routes

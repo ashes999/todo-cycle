@@ -6,16 +6,12 @@ using System.Net.Http;
 using System.Web.Http;
 using TodoCycle.Core;
 using TodoCycle.SqlDatabase;
+using TodoCycle.Web.Helpers;
 
 namespace TodoCycle.Web.Controllers.Api
 {
-    [Authorize]
-    public class TaskApiController : AbstractApiController
+    public class TaskController : AbstractApiController
     {
-        public TaskApiController(GenericRepository repository) : base(repository)
-        {
-        }
-
         public IEnumerable<Task> GetAll()
         {
             var userId = this.GetCurrentUser();

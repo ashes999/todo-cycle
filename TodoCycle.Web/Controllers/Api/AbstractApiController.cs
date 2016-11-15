@@ -13,9 +13,11 @@ namespace TodoCycle.Web.Controllers
     {
         protected GenericRepository repository;
 
-        public AbstractApiController(GenericRepository repository)
+        public AbstractApiController()
         {
-            this.repository = repository;
+            // TODO: dedupe with DI?
+            var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"];
+            repository = new GenericRepository(connectionString);
         }
 
         protected string GetCurrentUser()
@@ -24,7 +26,7 @@ namespace TodoCycle.Web.Controllers
             {
                 throw new InvalidOperationException("User is not authenticated");
             }
-
+           
             var userName = User.Identity.Name;
             var userId = repository.ExecuteScalar<string>("SELECT Id FROM AspNetUsers WHERE Email = @userName", new { userName = userName });
             return userId;
