@@ -10,19 +10,14 @@ namespace TodoCycle.Web.Controllers
 {
     public class TaskController : AbstractController
     {
-        private GenericRepository repository;
-
-        public TaskController(GenericRepository repository)
+        public TaskController(GenericRepository repository) : base(repository)
         {
-            this.repository = repository;
         }
 
         // GET: Task
         public ActionResult Index()
         {
-            var userId = this.GetCurrentUser(repository);
-            var tasks = this.repository.GetAll<Task>().Where(t => t.UserId == userId);
-            return View(tasks);
+            return View();
         }
 
         // GET: Task/Details/5

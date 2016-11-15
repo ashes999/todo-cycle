@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
 using TodoCycle.SqlDatabase;
 
 namespace TodoCycle.Web.Controllers
 {
     [Authorize]
-    public abstract class AbstractController : Controller
+    public abstract class AbstractApiController : ApiController
     {
         protected GenericRepository repository;
 
-        public AbstractController(GenericRepository repository)
+        public AbstractApiController(GenericRepository repository)
         {
             this.repository = repository;
         }
