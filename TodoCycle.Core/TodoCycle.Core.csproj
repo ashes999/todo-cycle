@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Schedules\AbstractSchedule.cs" />
     <Compile Include="Schedules\DailySchedule.cs" />
+    <Compile Include="Schedules\WeeklySchedule.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

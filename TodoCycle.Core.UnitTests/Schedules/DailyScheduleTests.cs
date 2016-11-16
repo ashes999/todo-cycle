@@ -50,6 +50,16 @@ namespace TodoCycle.Core.UnitTests.Schedules
         }
 
         [Test]
+        public void IsDueIsTrueIfYouMissedADay()
+        {
+            // Every 10 days.
+            var schedule = new DailySchedule(10);
+            // Created 20 days ago, completed 18 days ago, it was then due 10 days ago. 
+            var task = new Core.Task() { CreatedOnUtc = DateTime.UtcNow.AddDays(-20), DoneOnUtc = DateTime.UtcNow.AddDays(-18) };
+            Assert.That(DailySchedule.IsDue(task, schedule), Is.EqualTo(true));
+        }
+
+        [Test]
         public void IsDueIsFalseIfStartDateIsInTheFuture()
         {
             var daily = new DailySchedule(1);
