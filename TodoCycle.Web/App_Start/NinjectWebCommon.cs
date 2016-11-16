@@ -12,6 +12,7 @@ namespace TodoCycle.Web.App_Start
     using Ninject.Web.Common;
     using System.Configuration;
     using TodoCycle.SqlDatabase;
+    using SqlDatabase.Repositories;
 
     public static class NinjectWebCommon 
     {
@@ -63,7 +64,9 @@ namespace TodoCycle.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<GenericRepository>().ToSelf().WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["DefaultConnection"]);
+            var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"];
+            kernel.Bind<IRepository>().To<GenericRepository>().WithConstructorArgument("connectionString", connectionString);
+            kernel.Bind<TaskRepository>().ToSelf().WithConstructorArgument("connectionString", connectionString);
         }        
     }
 }

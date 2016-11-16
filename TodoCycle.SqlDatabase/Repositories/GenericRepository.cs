@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using Dapper;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Collections;
 
-namespace TodoCycle.SqlDatabase
+namespace TodoCycle.SqlDatabase.Repositories
 {
-    public class GenericRepository
+    public class GenericRepository : IRepository
     {
-        private string connectionString;
+        protected string connectionString;
 
         public GenericRepository(ConnectionStringSettings connectionString)
         {
@@ -32,7 +33,7 @@ namespace TodoCycle.SqlDatabase
             var tableName = this.TableNameFor<T>();
 
             var properties = GetProperties<T>();
-            var values = GetValues<T>(properties);
+            var values = string.Join(",", GetParameterNames<T>(properties));
             
             using (var connection = new SqlConnection(connectionString))
             {
@@ -56,18 +57,11 @@ namespace TodoCycle.SqlDatabase
             }
         }
 
-        private string GetValues<T>(IEnumerable<string> fields)
+        private IEnumerable<string> GetParameterNames<T>(IEnumerable<string> fields)
         {
-            var type = typeof(T);
-            var builder = new StringBuilder();
-            foreach (var field in fields)
-            {
-                var value = "@" + field;
-                builder.Append(value).Append(",");
-            }
-
-            var toReturn = builder.ToString();
-            return toReturn.Substring(0, toReturn.LastIndexOf(',')); // Trim trailing comma
+            // Input: "Name", "Note", "Order"
+            // Output: "@Name", "@Note", "@Order"
+            return fields.Select(f => string.Format("@{0}", f));
         }
 
         private IEnumerable<string> GetProperties<T>()

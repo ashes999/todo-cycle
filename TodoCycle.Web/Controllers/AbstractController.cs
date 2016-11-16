@@ -5,15 +5,16 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TodoCycle.SqlDatabase;
+using TodoCycle.SqlDatabase.Repositories;
 
 namespace TodoCycle.Web.Controllers
 {
     [Authorize]
     public abstract class AbstractController : Controller
     {
-        protected GenericRepository repository;
+        protected IRepository repository;
 
-        public AbstractController(GenericRepository repository)
+        public AbstractController(IRepository repository)
         {
             this.repository = repository;
         }

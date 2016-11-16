@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Elmah.Contrib.WebApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 
 namespace TodoCycle.Web
 {
@@ -11,6 +13,9 @@ namespace TodoCycle.Web
         {
             // Configure Web API to use only forms authentication
             config.Filters.Add(new AuthorizeAttribute());
+
+            // enable elmah to trap all exceptions
+            config.Services.Add(typeof(IExceptionLogger), new ElmahExceptionLogger());
 
             // Web API configuration and services
 
