@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoCycle.Core", "TodoCycle.Core\TodoCycle.Core.csproj", "{73DDB9CB-4DEC-4E7F-A6E0-9523C2DBE62B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{858A094F-F3E1-4A59-9632-AAE06BCF8755}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoCycle.Core.UnitTests", "TodoCycle.Core.UnitTests\TodoCycle.Core.UnitTests.csproj", "{2E01D585-FEE4-4094-A922-B783090E012D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +33,10 @@ Global
 		{73DDB9CB-4DEC-4E7F-A6E0-9523C2DBE62B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73DDB9CB-4DEC-4E7F-A6E0-9523C2DBE62B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73DDB9CB-4DEC-4E7F-A6E0-9523C2DBE62B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E01D585-FEE4-4094-A922-B783090E012D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E01D585-FEE4-4094-A922-B783090E012D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E01D585-FEE4-4094-A922-B783090E012D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E01D585-FEE4-4094-A922-B783090E012D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,5 +44,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{CD6D3239-178A-4F56-814C-891A76CDADE2} = {B9D17C2A-933E-465E-908C-BF5BD2799EE5}
 		{A10CF5CD-B54A-4B4D-AAA8-A90EEF6E088D} = {B9D17C2A-933E-465E-908C-BF5BD2799EE5}
+		{73DDB9CB-4DEC-4E7F-A6E0-9523C2DBE62B} = {858A094F-F3E1-4A59-9632-AAE06BCF8755}
+		{2E01D585-FEE4-4094-A922-B783090E012D} = {858A094F-F3E1-4A59-9632-AAE06BCF8755}
 	EndGlobalSection
 EndGlobal
