@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TodoCycle.Core.Schedules;
 
 namespace TodoCycle.Core
 {
@@ -26,29 +21,12 @@ namespace TodoCycle.Core
         public int Order { get; set; }
 
         public DateTime CreatedOnUtc { get; set; }
-
-        public DateTime? StartDateUtc { get; set; }
-
+        
         /// <summary>
         /// Null if this isn't done, non-null if it is done.
         /// </summary>
         public DateTime? DoneOnUtc { get; set; }
 
         public bool IsDone {  get { return DoneOnUtc.HasValue; } }
-
-        // Serialized to the DB as JSON
-        public string ScheduleJson { get; set; }
-
-        public AbstractSchedule Schedule
-        {
-            get
-            {
-                return AbstractSchedule.Parse(this.ScheduleJson);
-            }
-            set
-            {
-                ScheduleJson = Newtonsoft.Json.JsonConvert.SerializeObject(value);
-            }
-        }
     }
 }

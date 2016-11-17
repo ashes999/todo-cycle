@@ -14,7 +14,7 @@ namespace TodoCycle.Core.Schedules
         {
             this.daysOfWeek = daysOfWeek;
         }
-        public static bool IsDue(Task task, WeeklySchedule schedule)
+        public static bool IsDue(ScheduledTask task, WeeklySchedule schedule)
         {
             var start = task.StartDateUtc.HasValue ? task.StartDateUtc.Value : task.CreatedOnUtc;
             return DateTime.UtcNow.Date >= start.Date && schedule.daysOfWeek.Contains(DateTime.UtcNow.DayOfWeek);

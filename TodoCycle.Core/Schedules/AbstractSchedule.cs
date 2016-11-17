@@ -10,17 +10,20 @@ namespace TodoCycle.Core.Schedules
 
     public abstract class AbstractSchedule
     {
-        internal static AbstractSchedule Parse(string scheduleJson)
+        public static AbstractSchedule Parse(string scheduleJson)
         {
             dynamic json = JsonConvert.DeserializeObject(scheduleJson);
-            string scheduleType = json.ScheduleType.ToUpper();
+            string scheduleType = json.ScheduleType.Value.ToUpper();
 
             switch (scheduleType)
             {
                 case "DAILY":
-                    return new DailySchedule(json.EveryNDays);
-                //case "WEEKLY":
-                //    return new WeeklySchedule(json.DaysOfWeek);
+                    // long => int
+                    return new DailySchedule((int)json.EveryNDays.Value);
+                case "WEEKLY":
+                    string rawDays = json.DaysOfWeek.Value;
+                    var days = rawDays.Split(new char[] { ',' }).Select(n => (DayOfWeek)int.Parse(n));
+                    return new WeeklySchedule(days);
                 //case "MONTHLY":
                 //    return new MonthlySchedule(json.DayOfMonth);
                 //case "YEARLY":

@@ -22,7 +22,7 @@ function ($scope, $http, orderBy) {
     };
 
     $http({ method: 'GET', url: 'api/Task/GetAll' }).success(function (data, status, headers, config) {
-        // order by "order" attribute, false = non-reverse
-        self.tasks = orderBy(data, 'order', false); 
+        // order by "Order" attribute, false = non-reverse
+        self.tasks = orderBy(data, 'Order', false); 
     });
 }]);

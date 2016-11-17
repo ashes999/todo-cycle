@@ -45,9 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ScheduledTask.cs" />
     <Compile Include="Schedules\AbstractSchedule.cs" />
     <Compile Include="Schedules\DailySchedule.cs" />
+    <Compile Include="Schedules\MonthlySchedule.cs" />
     <Compile Include="Schedules\WeeklySchedule.cs" />
+    <Compile Include="Schedules\YearlySchedule.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

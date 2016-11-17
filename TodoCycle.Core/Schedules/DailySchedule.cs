@@ -15,7 +15,7 @@ namespace TodoCycle.Core.Schedules
             this.everyNDays = everyNDays;
         }
 
-        public static bool IsDue(Task task, DailySchedule schedule)
+        public static bool IsDue(ScheduledTask task, DailySchedule schedule)
         {
             var start = task.StartDateUtc.HasValue ? task.StartDateUtc.Value : task.CreatedOnUtc;
             int elapsedDays = (int)Math.Floor((DateTime.UtcNow - start).TotalDays);

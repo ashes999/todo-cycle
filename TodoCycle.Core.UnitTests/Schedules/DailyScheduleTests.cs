@@ -16,7 +16,7 @@ namespace TodoCycle.Core.UnitTests.Schedules
         public void IsDueIsTrueIfTaskRecursDaily(bool isDone)
         {
             var daily = new DailySchedule(1);
-            var task = new Core.Task();
+            var task = new Core.ScheduledTask();
             if (isDone)
             {
                 task.DoneOnUtc = DateTime.UtcNow;
@@ -31,7 +31,7 @@ namespace TodoCycle.Core.UnitTests.Schedules
             var everyOtherDay = new DailySchedule(2);
 
             // It was completed yesterday. It shouldn't be due until tomorrow.
-            var task = new Core.Task() { CreatedOnUtc = DateTime.UtcNow.AddDays(-1), DoneOnUtc = DateTime.UtcNow.AddDays(-1) };
+            var task = new Core.ScheduledTask() { CreatedOnUtc = DateTime.UtcNow.AddDays(-1), DoneOnUtc = DateTime.UtcNow.AddDays(-1) };
 
             Assert.That(DailySchedule.IsDue(task, everyOtherDay), Is.EqualTo(false));
 
@@ -45,7 +45,7 @@ namespace TodoCycle.Core.UnitTests.Schedules
         public void IsDueIsTrueIfTheTaskWasntDoneEvenOnNonNthDays()
         {
             var schedule = new DailySchedule(2);
-            var task = new Core.Task() { CreatedOnUtc = DateTime.UtcNow.AddDays(-20), DoneOnUtc = DateTime.UtcNow.AddDays(-14) };
+            var task = new Core.ScheduledTask() { CreatedOnUtc = DateTime.UtcNow.AddDays(-20), DoneOnUtc = DateTime.UtcNow.AddDays(-14) };
             Assert.That(DailySchedule.IsDue(task, schedule), Is.EqualTo(true));
         }
 
@@ -55,7 +55,7 @@ namespace TodoCycle.Core.UnitTests.Schedules
             // Every 10 days.
             var schedule = new DailySchedule(10);
             // Created 20 days ago, completed 18 days ago, it was then due 10 days ago. 
-            var task = new Core.Task() { CreatedOnUtc = DateTime.UtcNow.AddDays(-20), DoneOnUtc = DateTime.UtcNow.AddDays(-18) };
+            var task = new Core.ScheduledTask() { CreatedOnUtc = DateTime.UtcNow.AddDays(-20), DoneOnUtc = DateTime.UtcNow.AddDays(-18) };
             Assert.That(DailySchedule.IsDue(task, schedule), Is.EqualTo(true));
         }
 
@@ -63,7 +63,7 @@ namespace TodoCycle.Core.UnitTests.Schedules
         public void IsDueIsFalseIfStartDateIsInTheFuture()
         {
             var daily = new DailySchedule(1);
-            var task = new Core.Task() { StartDateUtc = DateTime.UtcNow.AddDays(1) };
+            var task = new Core.ScheduledTask() { StartDateUtc = DateTime.UtcNow.AddDays(1) };
             Assert.That(DailySchedule.IsDue(task, daily), Is.EqualTo(false));
         }
     }
