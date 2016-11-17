@@ -11,18 +11,48 @@ function ($scope, $http, orderBy) {
         stop: function (e, ui)
         {
             // User just re-ordered tasks. It may be inefficient, but we just save all the tasks' new orders.
-            var tasks = self.tasks;
-            for (var i = 0; i < tasks.length; i++)
-            {
-                tasks[i].Order = i;
-            }
-
-            $http({ method: 'PATCH', url: 'api/Task/Reorder', data: self.tasks });
+            $scope.orderAndPatch(self.tasks, "api/Task/Reorder");            
         },
     };
 
-    $http({ method: 'GET', url: 'api/Task/GetAll' }).success(function (data, status, headers, config) {
+    $scope.scheduledSortableOptions = {
+        stop: function (e, ui) {
+            // User just re-ordered tasks. It may be inefficient, but we just save all the tasks' new orders.
+            $scope.orderAndPatch(self.scheduledTasks, "api/ScheduledTask/Reorder");
+        },
+    };
+
+    $scope.orderAndPatch = function(tasks, url)
+    {
+        for (var i = 0; i < tasks.length; i++) {
+            tasks[i].Order = i;
+        }
+
+        $http({ method: 'PATCH', url: url, data: tasks });
+    }
+
+    $http({ method: 'GET', url: 'api/Task/GetAll' }).success(function (data, status, headers, config)
+    {
+        // Returns both scheduled and non-scheduled tasks. Distinguishing factor is ScheduleJson field.
+
+        var tasks = [];
+        var scheduledTasks = [];
+
+        for (var i = 0; i < data.length; i++)
+        {
+            var t = data[i];
+            if (t.ScheduleJson != null)
+            {
+                scheduledTasks.push(t);
+            }
+            else
+            {
+                tasks.push(t);
+            }
+        }        
+
         // order by "Order" attribute, false = non-reverse
-        self.tasks = orderBy(data, 'Order', false); 
+        self.tasks = orderBy(tasks, 'Order', false);
+        self.scheduledTasks = orderBy(scheduledTasks, 'Order', false);
     });
 }]);

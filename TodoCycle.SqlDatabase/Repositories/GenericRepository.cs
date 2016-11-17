@@ -57,6 +57,11 @@ namespace TodoCycle.SqlDatabase.Repositories
             }
         }
 
+        protected string TableNameFor(object instance)
+        {
+            return TableNameFor(instance.GetType());
+        }
+
         private IEnumerable<string> GetParameterNames<T>(IEnumerable<string> fields)
         {
             // Input: "Name", "Note", "Order"
@@ -72,7 +77,12 @@ namespace TodoCycle.SqlDatabase.Repositories
 
         private string TableNameFor<T>()
         {
-            var toReturn = typeof(T).Name;
+            return this.TableNameFor(typeof(T));
+        }
+
+        private string TableNameFor(Type type)
+        {
+            var toReturn = type.Name;
 
             if (!toReturn.EndsWith("s"))
             {
@@ -81,6 +91,5 @@ namespace TodoCycle.SqlDatabase.Repositories
 
             return toReturn;
         }
-
     }
 }

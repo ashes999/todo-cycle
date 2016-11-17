@@ -8,28 +8,19 @@ using TodoCycle.SqlDatabase.Repositories;
 
 namespace TodoCycle.Web.Controllers.Api
 {
-    public class TaskController : AbstractApiController
+    public class ScheduledTaskController : AbstractApiController
     {
         private TaskRepository taskRepository;
 
-        public TaskController()
+        public ScheduledTaskController()
         {
             // TODO: dedupe with DI?
             var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"];
             taskRepository = new TaskRepository(connectionString);
         }
 
-        [HttpGet]
-        public IEnumerable<Task> GetAll()
-        {
-            var userId = this.GetCurrentUser();
-            var tasks = this.repository.GetAll<Task>().Where(t => t.UserId == userId);
-            var scheduledTasks = this.repository.GetAll<ScheduledTask>().Where(t => t.UserId == userId);
-            return tasks.Concat(scheduledTasks);
-        }
-
         [HttpPatch]
-        public bool Reorder(IEnumerable<Task> tasks)
+        public bool Reorder(IEnumerable<ScheduledTask> tasks)
         {
             if (tasks == null || !tasks.Any())
             {

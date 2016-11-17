@@ -15,13 +15,16 @@ namespace TodoCycle.SqlDatabase.Repositories
         {
         }
 
+        // Task or ScheduledTask
         public void Reorder(IEnumerable<Task> tasks)
         {
             using (var connection = new SqlConnection(connectionString))
             {
+                var tableName = TableNameFor(tasks.First());
+
                 foreach (var task in tasks)
                 {
-                    connection.Execute("UPDATE Tasks SET [Order] = @order WHERE Id = @id", new { order = task.Order, id = task.Id });
+                    connection.Execute($"UPDATE {tableName} SET [Order] = @order WHERE Id = @id", new { order = task.Order, id = task.Id });
                 }
             }
         }
