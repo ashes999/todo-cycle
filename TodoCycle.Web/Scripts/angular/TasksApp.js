@@ -3,7 +3,8 @@
 var app = angular.module('app', ['ui.sortable']);
 
 angular.module('app').controller('TasksController', ['$scope', '$http', 'orderByFilter',
-function ($scope, $http, orderBy) {
+function ($scope, $http, orderBy)
+{
     var self = this;
 
     // Configure ui.sortable
@@ -16,7 +17,8 @@ function ($scope, $http, orderBy) {
     };
 
     $scope.scheduledSortableOptions = {
-        stop: function (e, ui) {
+        stop: function (e, ui)
+        {
             // User just re-ordered tasks. It may be inefficient, but we just save all the tasks' new orders.
             $scope.orderAndPatch(self.scheduledTasks, "api/ScheduledTask/Reorder");
         },
@@ -24,20 +26,22 @@ function ($scope, $http, orderBy) {
 
     $scope.orderAndPatch = function(tasks, url)
     {
-        for (var i = 0; i < tasks.length; i++) {
+        // We have tasks in an array. Use their indicies as the order.
+        for (var i = 0; i < tasks.length; i++)
+        {
             tasks[i].Order = i;
         }
 
         $http({ method: 'PATCH', url: url, data: tasks });
     }
 
-    $http({ method: 'GET', url: 'api/Task/GetAll' }).success(function (data, status, headers, config)
+    $http({ method: 'GET', url: 'api/Task/GetAll' })
+        .success(function (data, status, headers, config)
     {
-        // Returns both scheduled and non-scheduled tasks. Distinguishing factor is ScheduleJson field.
-
         var tasks = [];
         var scheduledTasks = [];
 
+        // Returns both scheduled and non-scheduled tasks. Distinguishing factor is ScheduleJson field.
         for (var i = 0; i < data.length; i++)
         {
             var t = data[i];

@@ -1,4 +1,12 @@
-﻿body {
+﻿.task {
+    padding: 10px;
+    border: 2px solid black;
+    margin: 8px;
+}
+
+/***** Below is MVC boilerplate CSS *****/
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }

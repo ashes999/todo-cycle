@@ -16,14 +16,18 @@
         <div class="col-lg-6">
             <h2>Tasks</h2>
             <div ui-sortable="sortableOptions" ng-model="controller.tasks">
-                <div style="padding: 10px; border: 4px solid #888; margin: 8px;" ng-repeat="task in controller.tasks">{{ task.Name }}</div>
+                <div class="task" ng-repeat="task in controller.tasks">{{ task.Name }}</div>
             </div>
         </div>
+
         <div class="col-lg-6">
             <h2>Scheduled</h2>
             <div ui-sortable="scheduledSortableOptions" ng-model="controller.scheduledTasks">
-                <div style="padding: 10px; border: 4px solid #888; margin: 8px;" ng-repeat="task in controller.scheduledTasks">{{ task.Name }}</div>
+                <div class="task" ng-repeat="task in controller.scheduledTasks">{{ task.Name }}</div>
             </div>
         </div>
+
+        @* Without this, having multiple side-by-side lists won't work (the touch events don't trigger if the two lists overlap). *@
+        <div style="clear: both;"></div>
     </div>
 </div>
