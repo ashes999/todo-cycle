@@ -1,9 +1,9 @@
 ﻿'use strict';
 
-var app = angular.module('app', ['ui.sortable']);
+var app = angular.module('app', ['ui.sortable', 'notyModule']);
 
-angular.module('app').controller('TasksController', ['$scope', '$http', 'orderByFilter',
-function ($scope, $http, orderBy)
+angular.module('app').controller('TasksController', ['$scope', '$http', 'orderByFilter', 'noty',
+function ($scope, $http, orderBy, noty)
 {
     var self = this;
     var orderByFields = ['Order', '-CreatedOnUtc']; // Order ASC, then by created-on DESC
@@ -47,7 +47,7 @@ function ($scope, $http, orderBy)
                 self.tasks.unshift(response.data);
                 self.newTask = null;
             }, function error(response) {
-                console.log("Failed, try again");
+                noty.showError("Something went wrong.");
             });                
     }
 
