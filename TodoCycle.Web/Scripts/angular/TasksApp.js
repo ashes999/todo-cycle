@@ -6,6 +6,7 @@ angular.module('app').controller('TasksController', ['$scope', '$http', 'orderBy
 function ($scope, $http, orderBy)
 {
     var self = this;
+    var orderByFields = ['Order', '-CreatedOnUtc']; // Order ASC, then by created-on DESC
 
     // Configure ui.sortable
     $scope.sortableOptions = {
@@ -42,7 +43,8 @@ function ($scope, $http, orderBy)
 
         $http.post("api/Task/Create?taskName=" + encodeURI(name))
             .then(function success(response) {
-                console.log("Created task: " + response.data.Name);
+                // Push to front of array
+                self.tasks.unshift(response.data);
                 self.newTask = null;
             }, function error(response) {
                 console.log("Failed, try again");
@@ -72,7 +74,7 @@ function ($scope, $http, orderBy)
         }        
 
         // order by "Order" attribute, false = non-reverse
-        self.tasks = orderBy(tasks, 'Order', false);
-        self.scheduledTasks = orderBy(scheduledTasks, 'Order', false);
+        self.tasks = orderBy(tasks, orderByFields, false);
+        self.scheduledTasks = orderBy(scheduledTasks, orderByFields, false);
     });
 }]);
