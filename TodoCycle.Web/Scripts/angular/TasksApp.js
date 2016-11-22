@@ -51,6 +51,14 @@ function ($scope, $http, orderBy)
             });                
     }
 
+    $scope.createTaskIfPressedEnter = function(keyEvent)
+    {
+        if (keyEvent.which === 13)
+        {
+            $scope.createNewTask();
+        }
+    }
+
     // Startup code
 
     $http.get('api/Task/GetAll')
