@@ -14,7 +14,9 @@
 <div ng-app="app" class="col-lg-12">
     <div ng-controller="TasksController as controller">
         <div class="col-lg-6">
-            <h2>Tasks</h2>
+            <h2>
+                Tasks <input type="text" placeholder="New Task" ng-model="controller.newTask" /> (<a ng-click="createNewTask();">+</a>)          
+            </h2>
             <div ui-sortable="sortableOptions" ng-model="controller.tasks">
                 <div class="task" ng-repeat="task in controller.tasks">{{ task.Name }}</div>
             </div>

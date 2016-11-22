@@ -35,6 +35,15 @@ function ($scope, $http, orderBy)
         $http({ method: 'PATCH', url: url, data: tasks });
     }
 
+    $scope.createNewTask = function()
+    {
+        var name = self.newTask;
+        console.log("Created task: " + name);
+        self.newTask = null;
+    }
+
+    // Startup code
+
     $http({ method: 'GET', url: 'api/Task/GetAll' })
         .success(function (data, status, headers, config)
     {
