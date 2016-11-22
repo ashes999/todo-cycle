@@ -21,7 +21,7 @@ namespace TodoCycle.Web.Controllers
             repository = new GenericRepository(connectionString);
         }
 
-        protected string GetCurrentUser()
+        protected string GetCurrentUsersId()
         {
             if (!User.Identity.IsAuthenticated)
             {

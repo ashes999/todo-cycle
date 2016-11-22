@@ -26,7 +26,5 @@ namespace TodoCycle.Core
         /// Null if this isn't done, non-null if it is done.
         /// </summary>
         public DateTime? DoneOnUtc { get; set; }
-
-        public bool IsDone {  get { return DoneOnUtc.HasValue; } }
     }
 }

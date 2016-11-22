@@ -32,12 +32,12 @@ namespace TodoCycle.SqlDatabase.Repositories
         {
             var tableName = this.TableNameFor<T>();
 
-            var properties = GetProperties<T>();
+            var properties = GetProperties<T>().Where(p => p.ToUpper() != "ID");
             var values = string.Join(",", GetParameterNames<T>(properties));
             
             using (var connection = new SqlConnection(connectionString))
             {
-                connection.Execute(string.Format("INSERT INTO {0} ({1}) VALUES ({2})", tableName, string.Join(",", properties), values), instance);
+                connection.Execute(string.Format("INSERT INTO {0} ({1}) VALUES ({2})", tableName, string.Join(",", properties.Select(p => $"[{p}]")), values), instance);
             }
         }
 

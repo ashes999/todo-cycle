@@ -19,6 +19,11 @@ namespace TodoCycle.Web.Controllers.Api
             taskRepository = new TaskRepository(connectionString);
         }
 
+        /// <summary>
+        /// Reorders a list of scheduled tasks.
+        /// </summary>
+        /// <param name="tasks"></param>
+        /// <returns></returns>
         [HttpPatch]
         public bool Reorder(IEnumerable<ScheduledTask> tasks)
         {
@@ -27,7 +32,7 @@ namespace TodoCycle.Web.Controllers.Api
                 return false;
             }
 
-            var userId = this.GetCurrentUser();
+            var userId = this.GetCurrentUsersId();
             this.taskRepository.Reorder(tasks);
             return true; // success
         }

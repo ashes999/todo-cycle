@@ -32,28 +32,35 @@ function ($scope, $http, orderBy)
             tasks[i].Order = i;
         }
 
-        $http({ method: 'PATCH', url: url, data: tasks });
+        $http.patch(url, tasks);
     }
 
     $scope.createNewTask = function()
     {
         var name = self.newTask;
-        console.log("Created task: " + name);
-        self.newTask = null;
+        // TODO: replace with our good friend NotyJS
+
+        $http.post("api/Task/Create?taskName=" + encodeURI(name))
+            .then(function success(response) {
+                console.log("Created task: " + response.data.Name);
+                self.newTask = null;
+            }, function error(response) {
+                console.log("Failed, try again");
+            });                
     }
 
     // Startup code
 
-    $http({ method: 'GET', url: 'api/Task/GetAll' })
-        .success(function (data, status, headers, config)
+    $http.get('api/Task/GetAll')
+        .then(function success(response)
     {
         var tasks = [];
         var scheduledTasks = [];
 
         // Returns both scheduled and non-scheduled tasks. Distinguishing factor is ScheduleJson field.
-        for (var i = 0; i < data.length; i++)
+        for (var i = 0; i < response.data.length; i++)
         {
-            var t = data[i];
+            var t = response.data[i];
             if (t.ScheduleJson != null)
             {
                 scheduledTasks.push(t);
