@@ -4,6 +4,11 @@
     margin: 8px;
 }
 
+/***** Required for Angular *****/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 /***** Below is MVC boilerplate CSS *****/
 
 body {
