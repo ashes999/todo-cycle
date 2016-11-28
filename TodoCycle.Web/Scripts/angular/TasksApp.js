@@ -51,6 +51,10 @@ function ($scope, $http, orderBy, noty) {
         }
     }
 
+    $scope.toggleComplete = function (task) {
+        console.log("Mark complete: " + JSON.stringify(task));
+    }
+
     // Startup code
 
     $http.get('api/Task/GetAll')
@@ -73,13 +77,4 @@ function ($scope, $http, orderBy, noty) {
             self.tasks = orderBy(tasks, orderByFields, false);
             self.scheduledTasks = orderBy(scheduledTasks, orderByFields, false);
         });
-}])
-.directive('taskList', function () {
-    return {
-        restrict: 'AE',
-        templateUrl: 'Scripts/angular/task-in-list.html',
-        scope: {
-            tasks: '='
-        }
-    };
-});
+}]);

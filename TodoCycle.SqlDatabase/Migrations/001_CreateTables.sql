@@ -5,6 +5,7 @@
 	Note varchar(max), -- Markdown
 	[Order] int not null default 0,
 	CreatedOnUtc datetime not null default getutcdate(),
+	IsDone bit not null default(0),
 	DoneOnUtc datetime -- Null if not done
 )
 
@@ -16,6 +17,7 @@ create table ScheduledTasks (
 	Note varchar(max), -- Markdown
 	[Order] int not null default 0,
 	CreatedOnUtc datetime not null default getutcdate(),
+	IsDone bit not null default(0),
 	DoneOnUtc datetime, -- Null if not done
 
 	-- Unique to scheduled tasks
