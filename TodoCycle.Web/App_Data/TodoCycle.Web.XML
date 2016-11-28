@@ -527,5 +527,10 @@
             <param name="tasks"></param>
             <returns></returns>
         </member>
+        <member name="M:TodoCycle.Web.Controllers.Api.TaskController.ToggleComplete(System.Int32)">
+            <summary>
+            Toggles a tasks "completion" status from complete to incomplete (or vice-versa)
+            </summary>
+        </member>
     </members>
 </doc>

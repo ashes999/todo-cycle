@@ -66,7 +66,6 @@ namespace TodoCycle.Web.App_Start
         {
             var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"];
             kernel.Bind<IRepository>().To<GenericRepository>().WithConstructorArgument("connectionString", connectionString);
-            kernel.Bind<TaskRepository>().ToSelf().WithConstructorArgument("connectionString", connectionString);
         }        
     }
 }

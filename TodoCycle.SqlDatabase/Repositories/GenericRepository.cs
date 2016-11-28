@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using Dapper.Contrib.Extensions;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Collections;
+using TodoCycle.Core;
 
 namespace TodoCycle.SqlDatabase.Repositories
 {
@@ -19,33 +21,35 @@ namespace TodoCycle.SqlDatabase.Repositories
             this.connectionString = connectionString.ConnectionString;
         }
 
-        public IEnumerable<T> GetAll<T>(object parameters = null)
+        public IEnumerable<T> GetAll<T>(object parameters = null) where T : class
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                var sql = $"SELECT * FROM {this.TableNameFor<T>()}";
-                return connection.Query<T>(sql, parameters);
+                return connection.GetAll<T>();
             }
         }
 
-        public void Insert<T>(T instance)
+        public void Insert<T>(T instance) where T : class
         {
-            var tableName = this.TableNameFor<T>();
-
-            var properties = GetProperties<T>().Where(p => p.ToUpper() != "ID");
-            var values = string.Join(",", GetParameterNames<T>(properties));
-            
             using (var connection = new SqlConnection(connectionString))
             {
-                connection.Execute(string.Format("INSERT INTO {0} ({1}) VALUES ({2})", tableName, string.Join(",", properties.Select(p => $"[{p}]")), values), instance);
+                connection.Insert(instance);
             }
         }
 
-        public void Execute(string sql, object parameters = null)
+        public void Update<T>(T instance) where T : class
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                connection.Execute(sql, parameters);
+                connection.Update(instance);
+            }
+        }
+
+        public void UpdateAll<T>(IEnumerable<T> tasks) where T : class
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Update(tasks);
             }
         }
 
@@ -57,39 +61,13 @@ namespace TodoCycle.SqlDatabase.Repositories
             }
         }
 
-        protected string TableNameFor(object instance)
+        public void Execute(string sql, object parameters = null)
         {
-            return TableNameFor(instance.GetType());
-        }
-
-        private IEnumerable<string> GetParameterNames<T>(IEnumerable<string> fields)
-        {
-            // Input: "Name", "Note", "Order"
-            // Output: "@Name", "@Note", "@Order"
-            return fields.Select(f => string.Format("@{0}", f));
-        }
-
-        private IEnumerable<string> GetProperties<T>()
-        {
-            var type = typeof(T);
-            return type.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance).Select(f => f.Name).ToList();
-        }
-
-        private string TableNameFor<T>()
-        {
-            return this.TableNameFor(typeof(T));
-        }
-
-        private string TableNameFor(Type type)
-        {
-            var toReturn = type.Name;
-
-            if (!toReturn.EndsWith("s"))
+            using (var connection = new SqlConnection(connectionString))
             {
-                toReturn += "s";
+                connection.Execute(sql, parameters);
             }
-
-            return toReturn;
         }
+
     }
 }

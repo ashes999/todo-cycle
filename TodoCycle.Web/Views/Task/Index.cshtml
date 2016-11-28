@@ -22,7 +22,7 @@
                 Tasks <input type="text" placeholder="New Task" ng-model="controller.newTask" ng-keyup="createTaskIfPressedEnter($event);" /> (<a ng-click="createNewTask();">+</a>)          
             </h2>
             <div ui-sortable="sortableOptions" ng-model="controller.tasks">
-                <div class="task" ng-repeat="task in controller.tasks" ng-cloak>
+                <div class="task" ng-repeat="task in controller.tasks" ng-hide="task.DoneOnUtc !=  null" ng-cloak>
                     <input type="checkbox" ng-model="model" ng-change="toggleComplete(task);" />&nbsp;
                     {{ task.Name }}
                 </div>
@@ -33,7 +33,7 @@
         <div class="col-lg-6">
             <h2>Scheduled</h2>
             <div ui-sortable="scheduledSortableOptions" ng-model="controller.scheduledTasks">
-                <div class="task" ng-repeat="task in controller.scheduledTasks" ng-cloak>
+                <div class="task" ng-repeat="task in controller.scheduledTasks">
                     {{ task.Name }}
                 </div>
 

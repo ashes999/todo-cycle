@@ -26,5 +26,17 @@ namespace TodoCycle.Core
         /// Null if this isn't done, non-null if it is done.
         /// </summary>
         public DateTime? DoneOnUtc { get; set; }
+
+        public void ToggleComplete()
+        {
+            if (this.DoneOnUtc.HasValue)
+            {
+                this.DoneOnUtc = (DateTime?)null;
+            }
+            else
+            {
+                this.DoneOnUtc = DateTime.UtcNow;
+            }
+        }
     }
 }

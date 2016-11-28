@@ -52,23 +52,29 @@ function ($scope, $http, orderBy, noty) {
     }
 
     $scope.toggleComplete = function (task) {
-        console.log("Mark complete: " + JSON.stringify(task));
+        $http.patch( "api/Task/ToggleCompleted?taskId=" + task.Id ).then( function success( response )
+        {
+            task.DoneOnUtc = Date.now();
+        });
     }
 
     // Startup code
 
-    $http.get('api/Task/GetAll')
+    $http.get("api/Task/GetAll")
         .then(function success(response) {
             var tasks = [];
             var scheduledTasks = [];
 
             // Returns both scheduled and non-scheduled tasks. Distinguishing factor is ScheduleJson field.
-            for (var i = 0; i < response.data.length; i++) {
+            for (var i = 0; i < response.data.length; i++)
+            {
                 var t = response.data[i];
-                if (t.ScheduleJson != null) {
+                if (t.ScheduleJson != null)
+                {
                     scheduledTasks.push(t);
                 }
-                else {
+                else
+                {
                     tasks.push(t);
                 }
             }

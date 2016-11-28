@@ -10,13 +10,13 @@ namespace TodoCycle.Web.Controllers.Api
 {
     public class ScheduledTaskController : AbstractApiController
     {
-        private TaskRepository taskRepository;
+        private GenericRepository genericRepository;
 
         public ScheduledTaskController()
         {
             // TODO: dedupe with DI?
             var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"];
-            taskRepository = new TaskRepository(connectionString);
+            genericRepository = new GenericRepository(connectionString);
         }
 
         /// <summary>
@@ -32,8 +32,9 @@ namespace TodoCycle.Web.Controllers.Api
                 return false;
             }
 
+            // Tasks are already in their new order
             var userId = this.GetCurrentUsersId();
-            this.taskRepository.Reorder(tasks);
+            this.genericRepository.UpdateAll(tasks);
             return true; // success
         }
     }

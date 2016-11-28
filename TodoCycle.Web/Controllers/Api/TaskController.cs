@@ -10,13 +10,13 @@ namespace TodoCycle.Web.Controllers.Api
 {
     public class TaskController : AbstractApiController
     {
-        private TaskRepository taskRepository;
+        private IRepository genericRepository;
 
         public TaskController()
         {
             // TODO: dedupe with DI?
             var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"];
-            taskRepository = new TaskRepository(connectionString);
+            genericRepository = new GenericRepository(connectionString);
         }
 
         /// <summary>
@@ -39,11 +39,12 @@ namespace TodoCycle.Web.Controllers.Api
         {
             var task = new Task();
             task.Name =  Uri.UnescapeDataString(taskName);
+
             task.UserId = this.GetCurrentUsersId();
             task.Order = 0; // top of the list
             task.CreatedOnUtc = DateTime.UtcNow;
 
-            this.taskRepository.Insert<Task>(task);
+            this.genericRepository.Insert<Task>(task);
 
             return task;
         }
@@ -61,9 +62,23 @@ namespace TodoCycle.Web.Controllers.Api
                 return false;
             }
 
-            var userId = this.GetCurrentUsersId();
-            this.taskRepository.Reorder(tasks);
+            this.genericRepository.Update(tasks);
             return true; // success
+        }
+
+        /// <summary>
+        /// Toggles a tasks "completion" status from complete to incomplete (or vice-versa)
+        /// </summary>
+        [HttpPatch]
+        public void ToggleComplete(int taskId)
+        {
+            var userId = this.GetCurrentUsersId();
+            var task = this.genericRepository.GetAll<Task>().Where(t => t.UserId == userId).SingleOrDefault(t => t.Id == taskId);
+            if (task != null)
+            {
+                task.ToggleComplete();
+                this.genericRepository.Update(task);
+            }
         }
     }
 }

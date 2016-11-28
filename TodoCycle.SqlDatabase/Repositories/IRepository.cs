@@ -12,9 +12,13 @@ namespace TodoCycle.SqlDatabase.Repositories
 {
     public interface IRepository
     {
-        IEnumerable<T> GetAll<T>(object parameters = null);
+        IEnumerable<T> GetAll<T>(object parameters = null) where T : class;
 
-        void Insert<T>(T instance);
+        void Insert<T>(T instance) where T : class;
+
+        void Update<T>(T instance) where T : class;
+
+        void UpdateAll<T>(IEnumerable<T> tasks) where T : class;
 
         void Execute(string sql, object parameters = null);
 
