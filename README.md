@@ -10,3 +10,7 @@ Todo Cycle supports the following features:
 - Recurring tasks that persist until they're complete
 - One click to enter tasks, complete them, and prioritize them
 - Data based statistics on how much you expect to be able to do per cycle
+
+# Design Notes
+
+Designed as a Web-API based ASP.NET MVC application. Each major area (eg. todo lists, backlog <=> sprint planning) are single-page applications in Angular.
