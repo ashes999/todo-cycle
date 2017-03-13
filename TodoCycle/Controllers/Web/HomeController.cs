@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace TodoCycle.Controllers
+namespace TodoCycle.Controllers.Web
 {
     public class HomeController : Controller
     {

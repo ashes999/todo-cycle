@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace TodoCycle.Controllers
+namespace TodoCycle.Controllers.Api
 {
     [Authorize]
     public class ValuesController : ApiController

@@ -17,7 +17,7 @@ using TodoCycle.Models;
 using TodoCycle.Providers;
 using TodoCycle.Results;
 
-namespace TodoCycle.Controllers
+namespace TodoCycle.Controllers.Api
 {
     [Authorize]
     [RoutePrefix("api/Account")]
