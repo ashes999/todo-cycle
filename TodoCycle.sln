@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoCycle", "TodoCycle\TodoCycle.csproj", "{04869523-A980-42A7-BF31-E57984A0E724}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{5665316C-FD8A-44D4-BFBC-675D0820B910}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{59389F10-0B14-4A0B-8B52-56D656B6C4FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoCycle.DataAccess.Repositories", "TodoCycle.DataAccess.Repositories\TodoCycle.DataAccess.Repositories.csproj", "{E8BF8526-B90B-4CCB-A9B8-3248672B8B7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoCycle.DataAccess.Migrations", "TodoCycle.DataAccess.Migrations\TodoCycle.DataAccess.Migrations.csproj", "{8E9AD22B-02EC-4336-8120-8FE6AC310654}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoCycle.WebMvc", "TodoCycle.WebMvc\TodoCycle.WebMvc.csproj", "{7E2C9F38-EE53-4666-AC8E-075AA251F768}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,15 +19,25 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{04869523-A980-42A7-BF31-E57984A0E724}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{04869523-A980-42A7-BF31-E57984A0E724}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{04869523-A980-42A7-BF31-E57984A0E724}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{04869523-A980-42A7-BF31-E57984A0E724}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8BF8526-B90B-4CCB-A9B8-3248672B8B7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8BF8526-B90B-4CCB-A9B8-3248672B8B7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8BF8526-B90B-4CCB-A9B8-3248672B8B7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8BF8526-B90B-4CCB-A9B8-3248672B8B7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E9AD22B-02EC-4336-8120-8FE6AC310654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E9AD22B-02EC-4336-8120-8FE6AC310654}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E9AD22B-02EC-4336-8120-8FE6AC310654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E9AD22B-02EC-4336-8120-8FE6AC310654}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E2C9F38-EE53-4666-AC8E-075AA251F768}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E2C9F38-EE53-4666-AC8E-075AA251F768}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E2C9F38-EE53-4666-AC8E-075AA251F768}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E2C9F38-EE53-4666-AC8E-075AA251F768}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{04869523-A980-42A7-BF31-E57984A0E724} = {5665316C-FD8A-44D4-BFBC-675D0820B910}
+		{E8BF8526-B90B-4CCB-A9B8-3248672B8B7F} = {5665316C-FD8A-44D4-BFBC-675D0820B910}
+		{8E9AD22B-02EC-4336-8120-8FE6AC310654} = {5665316C-FD8A-44D4-BFBC-675D0820B910}
+		{7E2C9F38-EE53-4666-AC8E-075AA251F768} = {5665316C-FD8A-44D4-BFBC-675D0820B910}
 	EndGlobalSection
 EndGlobal
