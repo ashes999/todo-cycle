@@ -4,7 +4,32 @@
 
 @if (User.Identity.IsAuthenticated)
 {
+
+    <!-- Required for Anuglar -->
+    <!-- IE required polyfill -->
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/angular2-polyfills.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/Rx.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/2.0.0-beta.17/angular2-all.umd.min.js"></script>*@
+
+    <!-- IE required polyfill -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="node_modules/@("@")angular/core/bundles/core.umd.js"></script>
+    <script src="node_modules/@("@")angular/common/bundles/common.umd.js"></script>
+    <script src="node_modules/@("@")angular/compiler/bundles/compiler.umd.js"></script>
+    <script src="node_modules/@("@")angular/platform-browser/bundles/platform-browser.umd.js"></script>
+    <script src="node_modules/@("@")angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js"></script>
+
+    <!--Load our home-page(todo list) app-->
+    <script src="~/Scripts/angular/helloWorld.js"></script>
+
     <p>Hello, @User.Identity.Name!</p>
+
+    <my-app>... loading ...</my-app>
 }
 else
 {
