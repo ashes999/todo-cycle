@@ -4,10 +4,10 @@
     app.AppComponent =
       ng.core.Component({
           selector: 'my-app',
-          template: '<h1>Hello Angular! 2+3={{2 + 3}}</h1>'
+          template: '<h1>Hi. 1 + 1 => {{ 1 + 1 }}</h1>'
       })
       .Class({
-          constructor: function () { console.log("app.component constructed!"); }
+          constructor: function () { console.log("app.component constructed!" + new Date()); }
       });
 })(window.app || (window.app = {}));
 
@@ -21,7 +21,7 @@
           bootstrap: [app.AppComponent]
       })
       .Class({
-          constructor: function () { console.log("App.module constructed"); }
+          constructor: function () { console.log("App.module constructed!"  + new Date()); }
       });
 })(window.app || (window.app = {}));
 
