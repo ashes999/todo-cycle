@@ -6,11 +6,15 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using TodoCycle.WebMvc.Models;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace TodoCycle.WebMvc
 {
     public partial class Startup
     {
+        private static readonly string TodoCycleConfigEnvironmentVariable = "TodoCycleConfig";
+
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
@@ -38,12 +42,12 @@ namespace TodoCycle.WebMvc
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
-            app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));
+            // app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));
 
             // Enables the application to remember the second login verification factor such as phone or email.
             // Once you check this option, your second step of verification during the login process will be remembered on the device where you logged in from.
             // This is similar to the RememberMe option when you log in.
-            app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
+            // app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
@@ -58,11 +62,42 @@ namespace TodoCycle.WebMvc
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            var config = this.GetSecureConfigFromEnvironmentVariable();
+
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = config["GoogleClientId"],
+                ClientSecret = config["GoogleClientSecret"]
+            });
+        }
+
+        private IDictionary<string, string> GetSecureConfigFromEnvironmentVariable()
+        {
+            var json = Environment.GetEnvironmentVariable(TodoCycleConfigEnvironmentVariable);
+
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                throw new InvalidOperationException($"{TodoCycleConfigEnvironmentVariable} environment variable is not set!");
+            }
+
+            dynamic obj = JsonConvert.DeserializeObject(json);
+
+            // Not quite dynamic, but good enough for a small number of config values.
+            var toReturn = new Dictionary<string, string>();
+            toReturn["GoogleClientId"] = obj.GoogleClientId;
+            toReturn["GoogleClientSecret"] = obj.GoogleClientSecret;
+
+            if (string.IsNullOrWhiteSpace(toReturn["GoogleClientId"]))
+            {
+                throw new InvalidOperationException("GoogleClientId config is empty");
+            }
+
+            if (string.IsNullOrWhiteSpace(toReturn["GoogleClientSecret"]))
+            {
+                throw new InvalidOperationException("GoogleClientSecret config is empty");
+            }
+
+            return toReturn;
         }
     }
 }
