@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoCycle.DataAccess.Migrat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoCycle.WebMvc", "TodoCycle.WebMvc\TodoCycle.WebMvc.csproj", "{7E2C9F38-EE53-4666-AC8E-075AA251F768}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoCycle.DataAccess.Migrations.Runner", "TodoCycle.DataAccess.Migrations.Runner\TodoCycle.DataAccess.Migrations.Runner.csproj", "{CCF26723-D51A-4698-B8AB-3D86D7D0A5C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{7E2C9F38-EE53-4666-AC8E-075AA251F768}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E2C9F38-EE53-4666-AC8E-075AA251F768}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E2C9F38-EE53-4666-AC8E-075AA251F768}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCF26723-D51A-4698-B8AB-3D86D7D0A5C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCF26723-D51A-4698-B8AB-3D86D7D0A5C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCF26723-D51A-4698-B8AB-3D86D7D0A5C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCF26723-D51A-4698-B8AB-3D86D7D0A5C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,5 +45,6 @@ Global
 		{E8BF8526-B90B-4CCB-A9B8-3248672B8B7F} = {5665316C-FD8A-44D4-BFBC-675D0820B910}
 		{8E9AD22B-02EC-4336-8120-8FE6AC310654} = {5665316C-FD8A-44D4-BFBC-675D0820B910}
 		{7E2C9F38-EE53-4666-AC8E-075AA251F768} = {5665316C-FD8A-44D4-BFBC-675D0820B910}
+		{CCF26723-D51A-4698-B8AB-3D86D7D0A5C3} = {5665316C-FD8A-44D4-BFBC-675D0820B910}
 	EndGlobalSection
 EndGlobal
