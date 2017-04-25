@@ -7,19 +7,17 @@ using TodoCycle.DataAccess.Repositories;
 
 namespace TodoCycle.WebMvc.Controllers
 {
-    public class TaskController : Controller
+    public class TaskController : AbstractController
     {
-        private IGenericRepository repository;
-
-        public TaskController(IGenericRepository repository)
+        public TaskController(IGenericRepository repository) : base(repository)
         {
-            this.repository = repository;
         }
 
         // GET: Task
         public ActionResult Index()
         {
-            return View();
+            var allTasks = repository.Query<Models.Task>("select OwnerId = @currentUserId", new { currentUserId = this.CurrentUserId });
+            return View(allTasks);
         }
 
         // GET: Task/Details/5

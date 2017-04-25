@@ -23,10 +23,29 @@ namespace TodoCycle.DataAccess.Repositories
 
         public IEnumerable<T> Query<T>(string sql, object parameters)
         {
+            if (parameters == null)
+            {
+                parameters = new { };
+            }
+
             using (var connection = new SqlConnection(this.connectionString))
             {
                 connection.Open();
                 return connection.Query<T>(sql, parameters);
+            }
+        }
+
+        public T ExecuteScalar<T>(string sql, object parameters)
+        {
+            if (parameters == null)
+            {
+                parameters = new { };
+            }
+
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                return (T)connection.ExecuteScalar<T>(sql, parameters);
             }
         }
     }
