@@ -39,10 +39,11 @@ namespace TodoCycle.WebMvc.Controllers
             try
             {
                 // TODO: Add insert logic here
-
+                var newTask = new Models.Task(collection["Description"], this.CurrentUserId.ToString());
+                this.repository.Save<Models.Task>(newTask);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
                 return View();
             }
