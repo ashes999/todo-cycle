@@ -10,14 +10,14 @@ namespace TodoCycle.WebMvc.Models
         public int Id { get; set; }
         public string Description { get; set; } // Markdown
         public bool IsComplete { get; set; }
-        public Guid OwnerId { get; set; }
+        public string OwnerId { get; set; }
         public DateTime CreatedOnUtc { get; set; }
         public DateTime UpdatedOnUtc { get; set; }
 
         // For ORM
         public Task() { }
 
-        public Task(string description, Guid ownerId)
+        public Task(string description, string ownerId)
         {
             this.Description = description;
             this.IsComplete = false;

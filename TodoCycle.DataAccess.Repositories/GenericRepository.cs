@@ -21,12 +21,30 @@ namespace TodoCycle.DataAccess.Repositories
             this.connectionString = connectionString.ConnectionString;
         }
 
-        public IEnumerable<T> Query<T>(string sql, object parameters)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T">The type you want back. Also the type name of the table.</typeparam>
+        /// <param name="query">A partial query; no "SELECT [blah]" plzkthx.</param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public IEnumerable<T> Query<T>(string query, object parameters)
         {
             if (parameters == null)
             {
                 parameters = new { };
             }
+
+            // This is a pretty horrible (non-performant) way to avoid writing SQL in the web layer.
+            // I don't care about performance for this project; this saves me writing lots of repositories.
+            // eg. this allows: repo.Query<Task>("OwnerId = @ownerId", new { ownerId = ... })
+            var tableName = typeof(T).Name;
+            if (!tableName.EndsWith("s"))
+            {
+                tableName += "s";
+            }
+
+            var sql = $"SELECT * FROM {tableName} WHERE {query}";
 
             using (var connection = new SqlConnection(this.connectionString))
             {

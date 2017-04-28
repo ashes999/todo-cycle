@@ -16,7 +16,7 @@ namespace TodoCycle.WebMvc.Controllers
         // GET: Task
         public ActionResult Index()
         {
-            var allTasks = repository.Query<Models.Task>("select OwnerId = @currentUserId", new { currentUserId = this.CurrentUserId });
+            var allTasks = repository.Query<Models.Task>("OwnerId = @currentUserId", new { currentUserId = this.CurrentUserId.ToString() });
             return View(allTasks);
         }
 
